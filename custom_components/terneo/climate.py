@@ -65,7 +65,7 @@ class TerneoClimateEntity(ClimateEntity):
         self._hvac_mode = HVACMode.OFF
         self._hvac_action = HVACAction.OFF
 
-        self._attr_name = cloud_device.name
+        self._attr_name = "terneo." + cloud_device.serial_number.lower()
         self._attr_supported_features = SUPPORT_FLAGS
         self._attr_hvac_modes = SUPPORT_HVAC
         self._attr_temperature_unit = UnitOfTemperature.CELSIUS
