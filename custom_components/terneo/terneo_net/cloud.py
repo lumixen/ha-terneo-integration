@@ -1,3 +1,4 @@
+import asyncio
 from dataclasses import dataclass
 from typing import List, Optional
 
@@ -30,9 +31,11 @@ class CloudService:
         self._http_client = None
 
     async def _get_http_client(self):
-        """Lazily initialize the HTTP client."""
+        """Lazily initialize the HTTP client outside the event loop to avoid blocking SSL calls."""
         if not self._http_client:
-            self._http_client = httpx.AsyncClient()
+            self._http_client = await asyncio.get_event_loop().run_in_executor(
+                None, httpx.AsyncClient
+            )
         return self._http_client
 
     async def close(self):
