@@ -32,7 +32,7 @@ jobs:
           git config --local user.name "GitHub Action"
           git add custom_components/terneo/manifest.json
           git commit -m "Update version in manifest to ${{ steps.get_version.outputs.version }}"
-          git remote set-url origin https://x-access-token:${{ secrets.PERSONAL_TOKEN }}@github.com/ishikht/ha-terneo-integration.git
+          git remote set-url origin https://x-access-token:${{ secrets.PERSONAL_TOKEN }}@github.com/lumixen/ha-terneo-integration.git
           git push origin main
 
       - name: Create ZIP

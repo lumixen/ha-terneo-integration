@@ -1,12 +1,12 @@
 {
     "domain": "terneo",
     "name": "Terneo Climate Control",
-    "codeowners": ["@ishikht"],
+    "codeowners": ["@lumixen"],
     "config_flow": true,
     "dependencies": [],
-    "documentation": "https://github.com/ishikht/ha-terneo-integration",
+    "documentation": "https://github.com/lumixen/ha-terneo-integration",
     "iot_class": "cloud_polling",
-    "issue_tracker": "https://github.com/ishikht/ha-terneo-integration/issues",
+    "issue_tracker": "https://github.com/lumixen/ha-terneo-integration/issues",
     "requirements": [],
     "version": "0.1.5"
 }
