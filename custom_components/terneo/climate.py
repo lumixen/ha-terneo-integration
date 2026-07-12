@@ -46,6 +46,8 @@ async def async_setup_entry(hass, entry, async_add_entities):
         _LOGGER.error(f"Error initializing CloudService: {e}")
         return
 
+    hass.data[DOMAIN]["cloud_service"] = cloud
+
     entities = [TerneoClimateEntity(device, cloud) for device in cloud.cloud_devices]
     _LOGGER.debug(f"Adding entities: {entities}")
     async_add_entities(entities, True)
