@@ -26,6 +26,8 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
-    # Handle unloading the entry (e.g., when the user removes it)
+    cloud = hass.data[DOMAIN].pop("cloud_service", None)
+    if cloud:
+        await cloud.close()
     await hass.config_entries.async_forward_entry_unload(entry, "climate")
     return True

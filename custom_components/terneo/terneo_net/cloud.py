@@ -39,7 +39,6 @@ class CloudService:
         return self._http_client
 
     async def close(self):
-        """Close the HTTP client."""
         if self._http_client:
             await self._http_client.aclose()
             self._http_client = None
@@ -57,15 +56,6 @@ class CloudService:
         self._access_token = data.get("access_token", None)
         self.HEADERS_BASE["Authorization"] = f"Token {self._access_token}"
         return self._access_token is not None
-
-    def get_name(self, serial_number: str) -> Optional[str]:
-        cloud_device = next(
-            (d for d in self.cloud_devices if d.serial_number == serial_number), None
-        )
-        if not cloud_device:
-            return None
-
-        return cloud_device.name
 
     async def get_telemetry(self, serial_number: str) -> Optional[TerneoTelemetry]:
         cloud_device = next(
@@ -140,16 +130,6 @@ class CloudService:
         # Extract the portion after the last slash and before the hyphen.
         model = image.split("/")[-1].split("-")[0].upper()
         return model or "Unknown"
-
-    async def _get_device(self, device_id: int) -> Optional[CloudDevice]:
-        device_data = await self._send_request("GET", f"/device/{device_id}/")
-        if not device_data:
-            return None
-        return CloudDevice(
-            id=device_data["id"],
-            serial_number=device_data["sn"],
-            name=device_data["name"],
-        )
 
     async def power_on_off(self, serial_number: str, is_off: bool) -> bool:
         cloud_device = next(
